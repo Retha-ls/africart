@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Now - AfriCart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #333333;
+            --light-gray: #e0e0e0;
+            --accent: #E67E22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--dark-gray);
+            background-color: var(--white);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--black);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            padding: 5px;
+            outline: none;
+            width: 150px;
+        }
+        
+        .search-bar i {
+            color: var(--dark-gray);
+            cursor: pointer;
+        }
+        
+        .nav-icons i {
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--dark-gray);
+            transition: color 0.3s;
+        }
+        
+        .nav-icons i:hover {
+            color: var(--black);
+        }
+        
+        /* Hero Banner */
+        .shop-banner {
+            height: 300px;
+            background-image: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .banner-content {
+            background-color: rgba(255,255,255,0.9);
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            max-width: 600px;
+        }
+        
+        .banner-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Shop Controls */
+        .shop-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .categories {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 8px 20px;
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+        
+        .sort-by {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sort-by select {
+            padding: 8px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            height: 250px;
+            background-color: var(--gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--black);
+            margin-bottom: 15px;
+        }
+        
+        .product-price .old-price {
+            text-decoration: line-through;
+            color: var(--dark-gray);
+            font-weight: normal;
+            margin-left: 5px;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--black);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--accent);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--gray);
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: var(--black);
+        }
+        
+        .footer-column a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .shop-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .categories {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .sort-by {
+                justify-content: center;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .product-card {
+                width: 98%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .product-image {
+                height: 180px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .footer-column {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+
+                <div class="logo">AfriCart
+                <img src="logo.png" alt="AfriCart Logo" style="height: 40px;">
+                </div>
+                
+                
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="shop.html" class="active">Shop Now</a>
+                    <a href="about.html">About</a>
+                </div>
+                
+                <div class="nav-icons">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="profile.html"><i class="fas fa-user"></i></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Shop Banner -->
+    <section class="shop-banner">
+        <div class="banner-content">
+            <h1>New Season Collection</h1>
+            <p>Discover our latest arrivals for the season</p>
+        </div>
+    </section>
+
+    <!-- Shop Content -->
+    <main class="container">
+        <!-- Shop Controls -->
+        <div class="shop-controls">
+            <div class="categories">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="shirts">Shirts</button>
+                <button class="category-btn" data-category="pants">Pants</button>
+                <button class="category-btn" data-category="shoes">Shoes</button>
+                <button class="category-btn" data-category="hoodies">Hoodies</button>
+            </div>
+            
+            <div class="sort-by">
+                <span>Sort by:</span>
+                <select id="sort-select">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="product-grid">
+            <!-- Shirts (6 items) -->
+            <div class="product-card" data-category="shirts" data-price="599">
+                <div class="product-image">
+                    <img src="shirts/s1.jpg" alt="Casual Shirt">
+                    <div class="product-badge">New</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Casual Button-Up Shirt</h3>
+                    <div class="product-price">M599.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shirts" data-price="799">
+                <div class="product-image">
+                    <img src="shirts/s2.jpg" alt="Formal Shirt">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Formal Dress Shirt</h3>
+                    <div class="product-price">M799.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shirts" data-price="499">
+                <div class="product-image">
+                    <img src="shirts/s3.jpg" alt="Polo Shirt">
+                    <div class="product-badge">Bestseller</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Classic Polo Shirt</h3>
+                    <div class="product-price">M499.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shirts" data-price="699">
+                <div class="product-image">
+                    <img src="shirts/s4.jpg" alt="Oxford Shirt">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Oxford Shirt</h3>
+                    <div class="product-price">M699.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shirts" data-price="549">
+                <div class="product-image">
+                    <img src="shirts/s5.jpg" alt="Linen Shirt">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Breathable Linen Shirt</h3>
+                    <div class="product-price">M549.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shirts" data-price="649">
+                <div class="product-image">
+                    <img src="shirts/s6.jpg" alt="Denim Shirt">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Denim Shirt</h3>
+                    <div class="product-price">M649.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Pants (7 items) -->
+            <div class="product-card" data-category="pants" data-price="799">
+                <div class="product-image">
+                    <img src="pants/p1.jpg" alt="Chino Pants">
+                    <div class="product-badge">Sale</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Slim Fit Chino Pants</h3>
+                    <div class="product-price">M799.00 <span class="old-price">M999.00</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="pants" data-price="899">
+                <div class="product-image">
+                    <img src="pants/p2.jpg" alt="Cargo Pants">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Utility Cargo Pants</h3>
+                    <div class="product-price">M899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="pants" data-price="599">
+                <div class="product-image">
+                    <img src="pants/p3.jpg" alt="Joggers">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Comfort Joggers</h3>
+                    <div class="product-price">M599.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="pants" data-price="849">
+                <div class="product-image">
+                    <img src="pants/p4.jpg" alt="Jeans">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Classic Blue Jeans</h3>
+                    <div class="product-price">M849.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="pants" data-price="499">
+                <div class="product-image">
+                    <img src="pants/p5.jpg" alt="Cargo Shorts">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Cargo Shorts</h3>
+                    <div class="product-price">M499.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="pants" data-price="999">
+                <div class="product-image">
+                    <img src="pants/p6.jpg" alt="Dress Pants">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Formal Dress Pants</h3>
+                    <div class="product-price">M999.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="pants" data-price="799">
+                <div class="product-image">
+                    <img src="pants/p7.jpg" alt="Utility Pants">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Utility Pants</h3>
+                    <div class="product-price">M799.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Shoes (13 items - Jordans) -->
+            <div class="product-card" data-category="shoes" data-price="2799">
+                <div class="product-image">
+                    <img src="shoes/j1.jpg" alt="Jordan 1">
+                    <div class="product-badge">Bestseller</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 1 Retro</h3>
+                    <div class="product-price">M2,799.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2699">
+                <div class="product-image">
+                    <img src="shoes/j2.jpg" alt="Jordan 2">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 2 Retro</h3>
+                    <div class="product-price">M2,699.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2899">
+                <div class="product-image">
+                    <img src="shoes/j3.jpg" alt="Jordan 3">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 3 Retro</h3>
+                    <div class="product-price">M2,899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2999">
+                <div class="product-image">
+                    <img src="shoes/j4.jpg" alt="Jordan 4">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 4 Retro</h3>
+                    <div class="product-price">M2,999.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2899">
+                <div class="product-image">
+                    <img src="shoes/j5.jpg" alt="Jordan 5">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 5 Retro</h3>
+                    <div class="product-price">M2,899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2899">
+                <div class="product-image">
+                    <img src="shoes/j6.jpg" alt="Jordan 6">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 6 Retro</h3>
+                    <div class="product-price">M2,899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2799">
+                <div class="product-image">
+                    <img src="shoes/j7.jpg" alt="Jordan 7">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 7 Retro</h3>
+                    <div class="product-price">M2,799.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2899">
+                <div class="product-image">
+                    <img src="shoes/j8.jpg" alt="Jordan 8">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 8 Retro</h3>
+                    <div class="product-price">M2,899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2699">
+                <div class="product-image">
+                    <img src="shoes/j9.jpg" alt="Jordan 9">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 9 Retro</h3>
+                    <div class="product-price">M2,699.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2799">
+                <div class="product-image">
+                    <img src="shoes/j10.jpg" alt="Jordan 10">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 10 Retro</h3>
+                    <div class="product-price">M2,799.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="3199">
+                <div class="product-image">
+                    <img src="shoes/j11.jpg" alt="Jordan 11">
+                    <div class="product-badge">New</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 11 Retro</h3>
+                    <div class="product-price">M3,199.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2899">
+                <div class="product-image">
+                    <img src="shoes/j12.jpg" alt="Jordan 12">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 12 Retro</h3>
+                    <div class="product-price">M2,899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="shoes" data-price="2899">
+                <div class="product-image">
+                    <img src="shoes/j13.jpg" alt="Jordan 13">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Air Jordan 13 Retro</h3>
+                    <div class="product-price">M2,899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Hoodies (10 items) -->
+            <div class="product-card" data-category="hoodies" data-price="749">
+                <div class="product-image">
+                    <img src="hoodies/h1.jpg" alt="Zip Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Zip-Up Hoodie</h3>
+                    <div class="product-price">M749.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="699">
+                <div class="product-image">
+                    <img src="hoodies/h2.jpg" alt="Pullover Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pullover Hoodie</h3>
+                    <div class="product-price">M699.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="849">
+                <div class="product-image">
+                    <img src="hoodies/h3.jpg" alt="Fleece Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Fleece Hoodie</h3>
+                    <div class="product-price">M849.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="949">
+                <div class="product-image">
+                    <img src="hoodies/h4.jpg" alt="Graphic Hoodie">
+                    <div class="product-badge">Bestseller</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Graphic Print Hoodie</h3>
+                    <div class="product-price">M949.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="899">
+                <div class="product-image">
+                    <img src="hoodies/h5.jpg" alt="Oversized Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Oversized Hoodie</h3>
+                    <div class="product-price">M899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="799">
+                <div class="product-image">
+                    <img src="hoodies/h6.jpg" alt="Athletic Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Athletic Hoodie</h3>
+                    <div class="product-price">M799.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="699">
+                <div class="product-image">
+                    <img src="hoodies/h7.jpg" alt="Cropped Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Cropped Hoodie</h3>
+                    <div class="product-price">M699.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="999">
+                <div class="product-image">
+                    <img src="hoodies/h8.jpg" alt="Sherpa Hoodie">
+                    <div class="product-badge">New</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Sherpa Lined Hoodie</h3>
+                    <div class="product-price">M999.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="699">
+                <div class="product-image">
+                    <img src="hoodies/h9.jpg" alt="Lightweight Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Lightweight Hoodie</h3>
+                    <div class="product-price">M699.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="hoodies" data-price="899">
+                <div class="product-image">
+                    <img src="hoodies/h10.jpg" alt="Vintage Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Vintage Wash Hoodie</h3>
+                    <div class="product-price">M899.00</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Shopping cart functionality
+        let cart = [];
+        
+        // Category filter functionality
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const productCards = document.querySelectorAll('.product-card');
+        const productGrid = document.getElementById('product-grid');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                
+                // Filter products
+                productCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Sort functionality
+        const sortSelect = document.getElementById('sort-select');
+        sortSelect.addEventListener('change', (e) => {
+            const sortValue = e.target.value;
+            const products = Array.from(productCards);
+            
+            products.sort((a, b) => {
+                const priceA = parseInt(a.dataset.price);
+                const priceB = parseInt(b.dataset.price);
+                
+                if (sortValue === 'price-low') {
+                    return priceA - priceB;
+                } else if (sortValue === 'price-high') {
+                    return priceB - priceA;
+                } else {
+                    // Default/featured sorting (original order)
+                    return 0;
+                }
+            });
+            
+            // Re-append products in sorted order
+            products.forEach(product => {
+                productGrid.appendChild(product);
+            });
+        });
+        
+        // Add to cart functionality
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const productCard = e.target.closest('.product-card');
+                const productTitle = productCard.querySelector('.product-title').textContent;
+                const productPrice = productCard.querySelector('.product-price').textContent;
+                const productImage = productCard.querySelector('img').src;
+                
+                // Add to cart
+                cart.push({
+                    title: productTitle,
+                    price: productPrice,
+                    image: productImage
+                });
+                
+                // Update cart icon (optional)
+                const cartIcon = document.querySelector('.fa-shopping-cart');
+                cartIcon.dataset.count = cart.length;
+                
+                // Show confirmation
+                alert(`${productTitle} has been added to your cart!`);
+                
+                // For demo purposes, log the cart
+                console.log('Cart:', cart);
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        // On page load, check for search query param
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+        const initialSearch = getQueryParam('search');
+        if (initialSearch) {
+            searchInput.value = initialSearch;
+            filterProducts(initialSearch);
+        }
+        function filterProducts(searchTerm) {
+            const term = searchTerm.toLowerCase();
+            productCards.forEach(card => {
+                const title = card.querySelector('.product-title').textContent.toLowerCase();
+                if (title.includes(term)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        searchInput.addEventListener('input', (e) => {
+            filterProducts(e.target.value);
+        });
+    </script>
+</body>
+</html>

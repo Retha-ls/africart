@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AfriCart DEMO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #333333;
+            --light-gray: #e0e0e0;
+            --accent: #E67E22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--dark-gray);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--black);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            padding: 5px;
+            outline: none;
+            width: 150px;
+        }
+        
+        .search-bar i {
+            color: var(--dark-gray);
+            cursor: pointer;
+        }
+        
+        .nav-icons i {
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--dark-gray);
+            transition: color 0.3s;
+        }
+        
+        .nav-icons i:hover {
+            color: var(--black);
+        }
+        
+        /* Hero Banner */
+        .about-banner {
+            height: 300px;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 60px;
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .banner-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* About Content */
+        .about-section {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--black);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: -8px;
+            left: 0;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Team Section */
+        .team-section {
+            margin-bottom: 60px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .team-member {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .member-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--black);
+        }
+        
+        .member-position {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        /* Values Section */
+        .values-section {
+            margin-bottom: 60px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .value-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .value-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--black);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .about-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .about-image {
+                order: -1;
+                width: 100%;
+            }
+            .about-image img {
+                height: 200px;
+                object-fit: cover;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .value-card {
+                padding: 20px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .footer-column {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AfriCart
+                    <img src="logo.png" alt="AfriCart Logo" style="height: 40px;">
+                </div>
+                
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="shop.html">Shop Now</a>
+                    <a href="about.html" class="active">About</a>
+                </div>
+                
+                <div class="nav-icons">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="profile.html"><i class="fas fa-user"></i></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="about-banner">
+        <div class="banner-content">
+            <h1>Our Story</h1>
+            <p>Discover the passion behind AfriCart</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <main class="container">
+        <section class="about-section">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Who We Are</h2>
+                    <p>AfriCart was founded in 2025 with a simple mission: to bring high-quality fashion to Lesotho at affordable prices. What started as a small online store has grown into one of the country's premier e-commerce destinations for stylish clothing and footwear.</p>
+                    <p>We take pride in curating collections that blend international trends with local tastes, ensuring our customers always look their best while staying true to their personal style.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Our Team">
+                </div>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80" alt="Our Mission">
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title">Our Mission</h2>
+                    <p>At AfriCart, we believe everyone deserves access to quality fashion without breaking the bank. We're committed to:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 15px;">
+                        <li>Providing exceptional customer service</li>
+                        <li>Offering competitive prices in Maloti</li>
+                        <li>Ensuring fast, reliable delivery across Lesotho</li>
+                        <li>Supporting local designers and manufacturers</li>
+                    </ul>
+                    <p>We're more than just a store - we're a community of fashion lovers helping each other look and feel great.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="values-section">
+            <h2 class="section-title">Our Core Values</h2>
+            <p>The principles that guide everything we do at AfriCart.</p>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="value-title">Customer First</h3>
+                    <p>Our customers are at the heart of every decision we make. We listen, we adapt, and we always strive to exceed expectations.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="value-title">Quality Assurance</h3>
+                    <p>We carefully select every item in our collection to ensure it meets our high standards for quality, style, and durability.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="value-title">Community Focus</h3>
+                    <p>We're proud to support local designers and give back to our community through various initiatives and partnerships.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Men's Collection</a></li>
+                        <li><a href="#">Women's Collection</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Sale Items</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Payment Options</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>About AfriCart</h3>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <p>Sign up for our newsletter to receive updates on new arrivals and special offers.</p>
+                    <div class="social-links">
+                        <a href="https://m.facebook.com/rethabile.matela.31255/?locale=en_GB"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/rethabile_3947/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 AfriCart. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Shopping cart functionality
+        let cart = [];
+        
+        // Add to cart functionality (for any cart buttons on page)
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const productCard = e.target.closest('.product-card');
+                const productTitle = productCard.querySelector('.product-title').textContent;
+                const productPrice = productCard.querySelector('.product-price').textContent;
+                const productImage = productCard.querySelector('img').src;
+                
+                // Add to cart
+                cart.push({
+                    title: productTitle,
+                    price: productPrice,
+                    image: productImage
+                });
+                
+                // Update cart icon
+                const cartIcon = document.querySelector('.fa-shopping-cart');
+                cartIcon.dataset.count = cart.length;
+                
+                // Show confirmation
+                alert(`${productTitle} has been added to your cart!`);
+                
+                // For demo purposes, log the cart
+                console.log('Cart:', cart);
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchIcon = document.querySelector('.search-bar i');
+        function triggerSearch() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                window.location.href = `shop.html?search=${encodeURIComponent(searchTerm)}`;
+            } else {
+                window.location.href = 'shop.html';
+            }
+        }
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                triggerSearch();
+            }
+        });
+        searchIcon.addEventListener('click', function() {
+            triggerSearch();
+        });
+    </script>
+</body>
+</html>

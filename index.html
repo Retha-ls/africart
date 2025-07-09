@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfriCart - Premium Clothing Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #f8f4e9;
+            --dark-gray: #333333;
+            --light-gray: #e0e0e0;
+            --accent: #E67E22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--dark-gray);
+            background-color: #f8f4e9;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--black);
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            padding: 5px;
+            outline: none;
+            width: 150px;
+        }
+        
+        .search-bar i {
+            color: var(--dark-gray);
+            cursor: pointer;
+        }
+        
+        .nav-icons i {
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--dark-gray);
+            transition: color 0.3s;
+        }
+        
+        .nav-icons i:hover {
+            color: var(--black);
+        }
+
+        /* Hero Section - 2 Column Layout */
+        .hero {
+            width: 100%;
+            padding: 60px 0 100px;
+            background: linear-gradient(90deg, #abaaaa 0%, #ffffff 100%);
+
+        }
+        .hero-row {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero-content {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* add this line to center children horizontally */
+            padding-right: 40px;
+            text-align: center;  /* optional: centers text too */
+        }
+
+        .hero-image-col {
+            flex: 1 1 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-image {
+            width: 100%;
+            max-width: 480px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.13);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 24px;
+            color: var(--black);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 36px;
+            color: var(--dark-gray);
+            line-height: 1.7;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-black {
+            background-color: var(--black);
+            color: var(--white);
+            border: 1px solid var(--black);
+        }
+        
+        .btn-black:hover {
+            background-color: transparent;
+            color: var(--black);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--black);
+            color: var(--black);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--black);
+            color: var(--white);
+        }
+        
+        /* Collections Section */
+        .collections {
+            padding: 100px 0;
+            background-color: var(--gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--black);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+        }
+        
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .collection-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .collection-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .collection-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .collection-info {
+            padding: 20px;
+        }
+        
+        .collection-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--black);
+        }
+        
+        .collection-info p {
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            color: var(--light-gray);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 50px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            .hero-row {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .hero-content {
+                padding-right: 0;
+                text-align: center;
+            }
+            .cta-buttons {
+                justify-content: center;
+            }
+            .hero-image-col {
+                justify-content: center;
+            }
+            .hero-image {
+                height: 400px;
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .hero-row {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .hero-content {
+                padding-right: 0;
+                text-align: center;
+            }
+            .hero-image-col {
+                justify-content: center;
+            }
+            .hero-image {
+                height: 250px;
+                max-width: 100%;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            .btn {
+                width: 80%;
+                min-width: 120px;
+                max-width: 220px;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            .collection-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .collection-card {
+                margin-left: auto;
+                margin-right: auto;
+                width: 98%;
+            }
+            .collection-img {
+                height: 180px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .footer-column {
+                text-align: center;
+            }
+            .hero-logo {
+            height: 40px;
+            width: 40px;
+            margin-bottom: 20px; /* optional spacing from the heading */
+}
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AfriCart
+                    
+                </div>
+                
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="shop.html">Shop Now</a>
+                    <a href="about.html">About</a>
+                </div>
+                
+                <div class="nav-icons">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="profile.html"><i class="fas fa-user"></i></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-row">
+            <div class="hero-content">
+                <img src="logo.png" alt="AfriCart Logo" style="height: 40px; width:40px; align-items: center;">
+                <h1>Elevate Your Everyday Style with Africart</h1>
+                <p>Discover premium quality clothing designed for modern living. Our carefully curated collections blend timeless aesthetics with contemporary trends, offering versatile pieces that transition effortlessly from day to night.</p>
+                <div class="cta-buttons">
+                    <a href="shop.html" class="btn btn-black">Shop Now</a>
+                    <a href="#collections" class="btn btn-outline">View Collections</a>
+                </div>
+            </div>
+            <div class="hero-image-col" data-aos="slide-left">
+                <img src="picture/home.jpg" alt="Fashionable clothing" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section class="collections" id="collections">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Collections</h2>
+                <p>Designed for comfort, crafted for style - discover your perfect look</p>
+            </div>
+            
+            <div class="collection-grid">
+                <div class="collection-card" data-aos="slide-left">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="New Arrivals" class="collection-img">
+                    <div class="collection-info">
+                        <h3>New Arrivals</h3>
+                        <p>Fresh styles added weekly. Be the first to wear the season's most coveted looks before they sell out.</p>
+                        <a href="shop.html" class="btn btn-black">Shop Now</a>
+                    </div>
+                </div>
+                
+                <div class="collection-card" data-aos="flip-up">
+                    <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Best Sellers" class="collection-img">
+                    <div class="collection-info">
+                        <h3>Best Sellers</h3>
+                        <p>Customer favorites that never go out of style. These are the pieces our community loves most.</p>
+                        <a href="shop.html" class="btn btn-black">Shop Now</a>
+                    </div>
+                </div>
+                
+                <div class="collection-card" data-aos="slide-right">
+                    <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Seasonal Essentials" class="collection-img">
+                    <div class="collection-info">
+                        <h3>Seasonal Essentials</h3>
+                        <p>Thoughtfully curated outfits perfect for current weather conditions and seasonal activities.</p>
+                        <a href="shop.html" class="btn btn-black">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Join Our Style Community</h2>
+            <p>Sign up today and receive 15% off your first order, plus exclusive access to sales, new arrivals, and styling tips from our fashion experts.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-outline">Create Account</a>
+                <a href="#" class="btn" style="background-color: var(--white); color: var(--black);">Sign In</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.instagram.com/rethabile_3947/">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/rethabile.matela.31255/?locale=en_GB&_rdr">Facebook</a></li>
+                        <li><a href="https://www.linkedin.com/in/rethabile-matela">LinkedIn</a></li>
+                        <li><a href="https://github.com/Retha-ls">Github</a></li>
+                        <li><a href="https://wa.me/26663192634">Whatsapp</a></li>
+                        <li><a href="mailto:r.matela2004@gmail.com">Whatsapp</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 AfriCart. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.AOS) {
+                AOS.init();
+            }
+        });
+        
+        // Shopping cart functionality
+        let cart = [];
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchIcon = document.querySelector('.search-bar i');
+        function triggerSearch() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                window.location.href = `shop.html?search=${encodeURIComponent(searchTerm)}`;
+            } else {
+                window.location.href = 'shop.html';
+            }
+        }
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                triggerSearch();
+            }
+        });
+        searchIcon.addEventListener('click', function() {
+            triggerSearch();
+        });
+    </script>
+</body>
+</html>
