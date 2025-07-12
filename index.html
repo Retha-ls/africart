@@ -121,8 +121,8 @@
             width: 100%;
             padding: 60px 0 100px;
             background: linear-gradient(90deg, #abaaaa 0%, #ffffff 100%);
-
         }
+        
         .hero-row {
             display: flex;
             flex-direction: row;
@@ -131,14 +131,15 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        
         .hero-content {
             flex: 1 1 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center; /* add this line to center children horizontally */
+            align-items: center;
             padding-right: 40px;
-            text-align: center;  /* optional: centers text too */
+            text-align: center;
         }
 
         .hero-image-col {
@@ -147,6 +148,7 @@
             align-items: center;
             justify-content: center;
         }
+        
         .hero-image {
             width: 100%;
             max-width: 480px;
@@ -155,6 +157,7 @@
             border-radius: 16px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.13);
         }
+        
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 24px;
@@ -163,12 +166,39 @@
             letter-spacing: -1px;
             line-height: 1.2;
         }
+        
+        /* Character Animation */
+        .char-animation {
+            display: inline-block;
+            overflow: hidden;
+        }
+        
+        .char-animation span {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+            animation: charReveal 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            animation-delay: calc(0.05s * var(--char-index));
+        }
+        
+        @keyframes charReveal {
+            0% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 36px;
             color: var(--dark-gray);
             line-height: 1.7;
         }
+        
         .cta-buttons {
             display: flex;
             gap: 20px;
@@ -334,11 +364,18 @@
             color: var(--light-gray);
             font-size: 0.9rem;
         }
+        #animated-heading {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+
         
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero {
-                padding: 20 0 5px;
+                padding: 20px 0 50px;
             }
             .hero-row {
                 flex-direction: column;
@@ -396,8 +433,6 @@
                 min-width: 150px;
                 max-width: 220px;
                 text-align: center;
-                margin-left: auto;
-                margin-right: auto;
             }
             .section-title h2 {
                 font-size: 1.8rem;
@@ -407,8 +442,6 @@
                 gap: 20px;
             }
             .collection-card {
-                margin-left: auto;
-                margin-right: auto;
                 width: 98%;
             }
             .collection-img {
@@ -421,12 +454,12 @@
             .footer-column {
                 text-align: center;
             }
-            .hero-logo {
-            height: 40px;
-            width: 40px;
-            margin-bottom: 20px; /* optional spacing from the heading */
-}
-
+            
+            /* Mobile animation adjustments */
+            .char-animation span {
+                animation-delay: calc(0.03s * var(--char-index)) !important;
+                animation-duration: 0.6s !important;
+            }
         }
     </style>
 </head>
@@ -435,9 +468,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">AfriCart
-                    
-                </div>
+                <div class="logo">AfriCart</div>
                 
                 <div class="nav-links">
                     <a href="index.html">Home</a>
@@ -461,8 +492,11 @@
     <section class="hero">
         <div class="hero-row">
             <div class="hero-content">
-                <img src="logo.png" alt="AfriCart Logo" style="height: 40px; width:40px; align-items: center;">
-                <h1>Elevate Your Everyday Style with Africart</h1>
+                <img src="logo.png" alt="AfriCart Logo" style="height: 40px; width:40px;">
+                <h1 id="animated-heading">
+  <span class="char-animation">Elevate</span>&nbsp;<span class="char-animation">Your</span>&nbsp;<span class="char-animation">Everyday</span><wbr>&nbsp;<span class="char-animation">Style</span>&nbsp;<span class="char-animation">with</span>&nbsp;<span class="char-animation">Africart</span>
+                <!-- The content will be replaced by JS, but add class for animation -->
+</h1>
                 <p>Discover premium quality clothing designed for modern living. Our carefully curated collections blend timeless aesthetics with contemporary trends, offering versatile pieces that transition effortlessly from day to night.</p>
                 <div class="cta-buttons">
                     <a href="shop.html" class="btn btn-black">Shop Now</a>
@@ -538,8 +572,7 @@
                         <li><a href="https://www.linkedin.com/in/rethabile-matela">LinkedIn</a></li>
                         <li><a href="https://github.com/Retha-ls">Github</a></li>
                         <li><a href="https://wa.me/26663192634">Whatsapp</a></li>
-                        <li><a href="mailto:r.matela2004@gmail.com">Whatsapp</a></li>
-
+                        <li><a href="mailto:r.matela2004@gmail.com">Email</a></li>
                     </ul>
                 </div>
             </div>
@@ -553,32 +586,67 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animations
             if (window.AOS) {
-                AOS.init();
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-out-quad',
+                    once: true
+                });
             }
-        });
-        
-        // Shopping cart functionality
-        let cart = [];
-        
-        // Search functionality
-        const searchInput = document.querySelector('.search-bar input');
-        const searchIcon = document.querySelector('.search-bar i');
-        function triggerSearch() {
-            const searchTerm = searchInput.value.trim();
-            if (searchTerm) {
-                window.location.href = `shop.html?search=${encodeURIComponent(searchTerm)}`;
-            } else {
-                window.location.href = 'shop.html';
+
+            // Word animation setup (prevents word breaking)
+            const heading = document.getElementById('animated-heading');
+            if (heading) {
+                heading.classList.add('char-animation');
+                const text = heading.textContent;
+                heading.innerHTML = '';
+
+                // Split into words, preserving spaces
+                const words = text.split(/(\s+)/);
+                let wordIndex = 0;
+
+                words.forEach(word => {
+                    if (word.trim() === '') {
+                        // Preserve spaces
+                        heading.appendChild(document.createTextNode(word));
+                    } else {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.classList.add('char-animation');
+                        wordSpan.style.setProperty('--char-index', wordIndex++);
+                        wordSpan.textContent = word;
+                        wordSpan.style.display = 'inline-block';
+                        wordSpan.style.whiteSpace = 'pre';
+                        heading.appendChild(wordSpan);
+                    }
+                });
             }
-        }
-        searchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
+
+            // Shopping cart functionality
+            let cart = [];
+
+            // Search functionality
+            const searchInput = document.querySelector('.search-bar input');
+            const searchIcon = document.querySelector('.search-bar i');
+
+            function triggerSearch() {
+                const searchTerm = searchInput.value.trim();
+                if (searchTerm) {
+                    window.location.href = `shop.html?search=${encodeURIComponent(searchTerm)}`;
+                } else {
+                    window.location.href = 'shop.html';
+                }
+            }
+
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    triggerSearch();
+                }
+            });
+
+            searchIcon.addEventListener('click', function() {
                 triggerSearch();
-            }
-        });
-        searchIcon.addEventListener('click', function() {
-            triggerSearch();
+            });
         });
     </script>
 </body>
